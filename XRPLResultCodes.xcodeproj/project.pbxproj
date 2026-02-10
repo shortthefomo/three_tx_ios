@@ -1,0 +1,235 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9D9D9D9D9D9D9D9D9D9D9D9D /* XRPLResultCodesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D7D7D7D7D7D7D7D7D7D7D /* XRPLResultCodesApp.swift */; };
+		9E9E9E9E9E9E9E9E9E9E9E9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E7E7E7E7E7E7E7E7E7E7E /* ContentView.swift */; };
+		9F9F9F9F9F9F9F9F9F9F9F9F /* XRPLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F7F7F7F7F7F7F7F7F7F7F /* XRPLClient.swift */; };
+		9A9A9A9A9A9A9A9A9A9A9A9B /* XRPLDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8A8A8A8A8A8A8A8A8A8A8A /* XRPLDataService.swift */; };
+		9B9B9B9B9B9B9B9B9B9B9B9B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B8B8B8B8B8B8B8B8B8B8B /* Models.swift */; };
+		9C9C9C9C9C9C9C9C9C9C9C9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C8C8C8C8C8C8C8C8C8C8C8C /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7A7A7A7A7A7A7A7A7A7A7A7A /* XRPLResultCodes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = XRPLResultCodes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D7D7D7D7D7D7D7D7D7D7D7D /* XRPLResultCodesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XRPLResultCodesApp.swift; sourceTree = "<group>"; };
+		7E7E7E7E7E7E7E7E7E7E7E7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7F7F7F7F7F7F7F7F7F7F7F7F /* XRPLClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XRPLClient.swift; sourceTree = "<group>"; };
+		8A8A8A8A8A8A8A8A8A8A8A8A /* XRPLDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XRPLDataService.swift; sourceTree = "<group>"; };
+		8B8B8B8B8B8B8B8B8B8B8B8B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		8C8C8C8C8C8C8C8C8C8C8C8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D8D8D8D8D8D8D8D8D8D8D8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C9C9C9C9C9C9C9C9C9C9C9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3C3C3C3C3C3C3C3C3C3C3C3C = {
+			isa = PBXGroup;
+			children = (
+				5E5E5E5E5E5E5E5E5E5E5E5E /* XRPLResultCodes */,
+				4D4D4D4D4D4D4D4D4D4D4D4D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4D4D4D4D4D4D4D4D4D4D4D4D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A7A7A7A7A7A7A7A7A7A7A7A /* XRPLResultCodes.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5E5E5E5E5E5E5E5E5E5E5E5E /* XRPLResultCodes */ = {
+			isa = PBXGroup;
+			children = (
+				7D7D7D7D7D7D7D7D7D7D7D7D /* XRPLResultCodesApp.swift */,
+				7E7E7E7E7E7E7E7E7E7E7E7E /* ContentView.swift */,
+				7F7F7F7F7F7F7F7F7F7F7F7F /* XRPLClient.swift */,
+				8A8A8A8A8A8A8A8A8A8A8A8A /* XRPLDataService.swift */,
+				8B8B8B8B8B8B8B8B8B8B8B8B /* Models.swift */,
+				8C8C8C8C8C8C8C8C8C8C8C8C /* Assets.xcassets */,
+				8D8D8D8D8D8D8D8D8D8D8D8D /* Info.plist */,
+			);
+			path = XRPLResultCodes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B2B2B2B2B2B2B2B2B2B2B2B /* XRPLResultCodes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBBBBBBBBBBBBBBBBBBBBBBB /* Build configuration list for PBXNativeTarget "XRPLResultCodes" */;
+			buildPhases = (
+				9A9A9A9A9A9A9A9A9A9A9A9A /* Sources */,
+				9B9B9B9B9B9B9B9B9B9B9B9C /* Resources */,
+				9C9C9C9C9C9C9C9C9C9C9C9D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XRPLResultCodes;
+			productName = XRPLResultCodes;
+			productReference = 7A7A7A7A7A7A7A7A7A7A7A7A /* XRPLResultCodes.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A1A1A1A1A1A1A1A1A1A1A1A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					2B2B2B2B2B2B2B2B2B2B2B2B = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = AAAAAAAAAAAAAAAAAAAAAAAA /* Build configuration list for PBXProject "XRPLResultCodes" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			mainGroup = 3C3C3C3C3C3C3C3C3C3C3C3C;
+			productRefGroup = 4D4D4D4D4D4D4D4D4D4D4D4D;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B2B2B2B2B2B2B2B2B2B2B2B /* XRPLResultCodes */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B9B9B9B9B9B9B9B9B9B9B9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C9C9C9C9C9C9C9C9C9C9C9C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9A9A9A9A9A9A9A9A9A9A9A9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D9D9D9D9D9D9D9D9D9D9D9D /* XRPLResultCodesApp.swift in Sources */,
+				9E9E9E9E9E9E9E9E9E9E9E9E /* ContentView.swift in Sources */,
+				9F9F9F9F9F9F9F9F9F9F9F9F /* XRPLClient.swift in Sources */,
+				9A9A9A9A9A9A9A9A9A9A9A9B /* XRPLDataService.swift in Sources */,
+				9B9B9B9B9B9B9B9B9B9B9B9B /* Models.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A1A1A1A1A1A1A1A1A1A1A1A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A2A2A2A2A2A2A2A2A2A2A2A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B1B1B1B1B1B1B1B1B1B1B1B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = XRPLResultCodes/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.three.xrplresultcodes;
+				PRODUCT_NAME = XRPLResultCodes;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Debug;
+		};
+		B2B2B2B2B2B2B2B2B2B2B2B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = XRPLResultCodes/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.three.xrplresultcodes;
+				PRODUCT_NAME = XRPLResultCodes;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAAAAAAAAAAAAAAAAAAAAAAA /* Build configuration list for PBXProject "XRPLResultCodes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1A1A1A1A1A1A1A1A1A1A1A1 /* Debug */,
+				A2A2A2A2A2A2A2A2A2A2A2A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BBBBBBBBBBBBBBBBBBBBBBBB /* Build configuration list for PBXNativeTarget "XRPLResultCodes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1B1B1B1B1B1B1B1B1B1B1B1 /* Debug */,
+				B2B2B2B2B2B2B2B2B2B2B2B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A1A1A1A1A1A1A1A1A1A1A1A /* Project object */;
+}
