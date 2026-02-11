@@ -5,6 +5,8 @@ struct ContentView: View {
     @State private var data: XRPLData?
     @State private var displayMode: DisplayMode = .resultCodes
     @State private var showFilters = true
+    @State private var refreshTimer: Timer?
+    @State private var refreshProgress: Double = 0
 
     var body: some View {
         ScrollView {
@@ -207,22 +209,39 @@ struct ContentView: View {
                 Button {
                     Task { await refreshData() }
                 } label: {
-                    if dataService.isLoading {
-                        ProgressView()
-                    } else {
-                        Image(systemName: "arrow.clockwise")
+                    ZStack {
+                        if dataService.isLoading {
+                            // Loading state: filled blue circle with spinner
+                            Circle()
+                                .fill(Color.blue)
+                            
+                            ProgressView()
+                                .tint(.white)
+                                .scaleEffect(0.6)
+                        } else {
+                            // Normal state: progress arc
+                            Circle()
+                                .trim(from: 0, to: refreshProgress)
+                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                                .rotationEffect(.degrees(-90))
+                        }
                     }
+                    .frame(width: 32, height: 32)
                 }
-                .disabled(dataService.isLoading)
+                .buttonStyle(.plain)
+                .disabled(dataService.isLoading || refreshProgress >= 0.99)
             }
         }
         .onAppear {
             updateDisplayData()
             Task { await refreshData() }
             dataService.startAutoRefresh()
+            startProgressAnimation()
         }
         .onChange(of: dataService.lastDataUpdate) { _, _ in
             updateDisplayData()
+            refreshProgress = 0  // Reset progress on refresh
+            startProgressAnimation()  // Restart the timer
         }
     }
 
@@ -252,5 +271,16 @@ struct ContentView: View {
     private func barColor(for index: Int) -> Color {
         let colors: [Color] = [.green, .blue, .orange, .red, .purple, .pink, .yellow, .cyan]
         return colors[index % colors.count]
+    }
+    
+    private func startProgressAnimation() {
+        refreshTimer?.invalidate()
+        let interval = dataService.dataMode.refreshInterval
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            refreshProgress += 0.1 / interval
+            if refreshProgress >= 1.0 {
+                refreshProgress = 1.0
+            }
+        }
     }
 }

@@ -54,21 +54,29 @@ struct XRPLWidgetProvider: AppIntentTimelineProvider {
         )
         
         // Always show data if we have it (fresh or stale)
-        // Only show errorMessage if we have absolutely nothing
         let displayData = data ?? XRPLWidgetEntryView.previewData
         let hasData = data != nil
         
-        let entry = XRPLWidgetEntry(
-            date: Date(),
-            configuration: configuration,
-            data: displayData,
-            errorMessage: hasData ? nil : "Open the app to fetch data",
-            isPlaceholder: !hasData
-        )
+        // Create entries for each second for smooth per-second animation
+        // 120 entries = 2 minutes, WidgetKit advances one per second
+        var entries: [XRPLWidgetEntry] = []
+        let now = Date()
+        
+        for secondOffset in 0..<120 {
+            let entryDate = now.addingTimeInterval(TimeInterval(secondOffset))
+            let entry = XRPLWidgetEntry(
+                date: entryDate,
+                configuration: configuration,
+                data: displayData,
+                errorMessage: hasData ? nil : "Open the app to fetch data",
+                isPlaceholder: false  // Always show real data, not placeholder
+            )
+            entries.append(entry)
+        }
 
-        // Refresh every 1 minute to stay current
-        let refreshDate = Date().addingTimeInterval(60)
-        return Timeline(entries: [entry], policy: .after(refreshDate))
+        // Refresh after 2 minutes (120 seconds)
+        let refreshDate = now.addingTimeInterval(120)
+        return Timeline(entries: entries, policy: .after(refreshDate))
     }
 }
 
@@ -89,7 +97,10 @@ struct XRPLWidgetEntryView: View {
 
     private var content: some View {
         VStack(alignment: .leading, spacing: 8) {
-            header
+            HStack(alignment: .top, spacing: 8) {
+                header
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
 
             if entry.isPlaceholder {
                 placeholderRows
@@ -112,12 +123,19 @@ struct XRPLWidgetEntryView: View {
             footer
         }
     }
+    
+    // Calculate countdown to next refresh (120 seconds = 2 minutes)
+    private var secondsSinceEntry: Double {
+        let elapsed = Date().timeIntervalSince(entry.date)
+        return max(0, min(120, elapsed))
+    }
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text((entry.configuration.displayMode ?? .resultCodes).rawValue)
                 .font(.caption)
                 .foregroundColor(.secondary)
+            
             HStack(spacing: 6) {
                 Text((entry.configuration.network ?? .xrpl).shortName)
                     .font(.headline)

@@ -1,4 +1,5 @@
 import Foundation
+import WidgetKit
 
 @MainActor
 final class XRPLDataService: ObservableObject {
@@ -84,6 +85,8 @@ final class XRPLDataService: ObservableObject {
             // Save to central shared store (single source of truth)
             XRPLSharedStore.save(data, network: network, dataMode: dataMode)
             lastDataUpdate = Date()
+            // Notify widget to refresh immediately
+            WidgetCenter.shared.reloadTimelines(ofKind: "XRPLResultCodesWidget")
         }
     }
 
@@ -109,6 +112,9 @@ final class XRPLDataService: ObservableObject {
 
         lastDataUpdate = Date()
         isLoading = false
+        
+        // Notify widget to refresh immediately
+        WidgetCenter.shared.reloadTimelines(ofKind: "XRPLResultCodesWidget")
         
         // Return data from the central shared store for the current selection
         return XRPLSharedStore.load(network: selectedNetwork, dataMode: dataMode)
