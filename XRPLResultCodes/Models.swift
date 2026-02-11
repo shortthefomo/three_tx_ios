@@ -35,7 +35,7 @@ enum DataMode: String, CaseIterable {
         case .live:
             return 1
         case .historical100:
-            return 10
+            return 100
         }
     }
 
