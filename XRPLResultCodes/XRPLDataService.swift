@@ -20,7 +20,7 @@ final class XRPLDataService: ObservableObject {
     }
 
     func getCurrentData() -> XRPLData? {
-        cachedData[selectedNetwork]
+        cachedData[selectedNetwork] ?? XRPLSharedStore.load(network: selectedNetwork, dataMode: dataMode)
     }
 
     func startAutoRefresh() {
@@ -75,6 +75,7 @@ final class XRPLDataService: ObservableObject {
         let client = XRPLClient()
         if let data = await fetchResultCodes(for: network, using: client) {
             cachedData[network] = data
+            XRPLSharedStore.save(data, network: network, dataMode: dataMode)
             lastDataUpdate = Date()
         }
     }
@@ -90,9 +91,11 @@ final class XRPLDataService: ObservableObject {
 
         if let xrplData = xrplData {
             cachedData[.xrpl] = xrplData
+            XRPLSharedStore.save(xrplData, network: .xrpl, dataMode: dataMode)
         }
         if let xahauData = xahauData {
             cachedData[.xahau] = xahauData
+            XRPLSharedStore.save(xahauData, network: .xahau, dataMode: dataMode)
         }
 
         lastDataUpdate = Date()

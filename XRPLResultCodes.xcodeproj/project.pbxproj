@@ -13,11 +13,13 @@
 		9D9D9D9D9D9D9D9D9D9D9D9D /* XRPLResultCodesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D7D7D7D7D7D7D7D7D7D7D /* XRPLResultCodesApp.swift */; };
 		9E9E9E9E9E9E9E9E9E9E9E9E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E7E7E7E7E7E7E7E7E7E7E /* ContentView.swift */; };
 		9F9F9F9F9F9F9F9F9F9F9F9F /* XRPLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F7F7F7F7F7F7F7F7F7F7F /* XRPLClient.swift */; };
+		C1C1C1C1C1C1C1C1C1C1C1C1 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F1F1F1F1F1F1F1F1F1F1F1 /* SharedStore.swift */; };
 		D1D1D1D1D1D1D1D1D1D1D1D1 /* XRPLResultCodesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E1E1E1E1E1E1E1E1E1E1E1 /* XRPLResultCodesWidget.swift */; };
 		D2D2D2D2D2D2D2D2D2D2D2D2 /* WidgetFiltersIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E2E2E2E2E2E2E2E2E2E2E2 /* WidgetFiltersIntent.swift */; };
 		D3D3D3D3D3D3D3D3D3D3D3D3 /* WidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3E3E3E3E3E3E3E3E3E3E3 /* WidgetDataService.swift */; };
 		D4D4D4D4D4D4D4D4D4D4D4D4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B8B8B8B8B8B8B8B8B8B8B /* Models.swift */; };
 		D5D5D5D5D5D5D5D5D5D5D5D5 /* XRPLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F7F7F7F7F7F7F7F7F7F7F /* XRPLClient.swift */; };
+		C2C2C2C2C2C2C2C2C2C2C2C2 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F1F1F1F1F1F1F1F1F1F1F1 /* SharedStore.swift */; };
 		D6D6D6D6D6D6D6D6D6D6D6D6 /* XRPLResultCodesWidget.appex in CopyFiles */ = {isa = PBXBuildFile; fileRef = E5E5E5E5E5E5E5E5E5E5E5E5 /* XRPLResultCodesWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -43,10 +45,13 @@
 		8B8B8B8B8B8B8B8B8B8B8B8B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		8C8C8C8C8C8C8C8C8C8C8C8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D8D8D8D8D8D8D8D8D8D8D8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1F1F1F1F1F1F1F1F1F1F1F1 /* SharedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
+		F2F2F2F2F2F2F2F2F2F2F2F2 /* XRPLResultCodes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XRPLResultCodes.entitlements; sourceTree = "<group>"; };
 		E1E1E1E1E1E1E1E1E1E1E1E1 /* XRPLResultCodesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XRPLResultCodesWidget.swift; sourceTree = "<group>"; };
 		E2E2E2E2E2E2E2E2E2E2E2E2 /* WidgetFiltersIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFiltersIntent.swift; sourceTree = "<group>"; };
 		E3E3E3E3E3E3E3E3E3E3E3E3 /* WidgetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataService.swift; sourceTree = "<group>"; };
 		E4E4E4E4E4E4E4E4E4E4E4E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6E6E6E6E6E6E6E6E6E6E6E6 /* XRPLResultCodesWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XRPLResultCodesWidget.entitlements; sourceTree = "<group>"; };
 		E5E5E5E5E5E5E5E5E5E5E5E5 /* XRPLResultCodesWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = XRPLResultCodesWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -94,8 +99,10 @@
 				7F7F7F7F7F7F7F7F7F7F7F7F /* XRPLClient.swift */,
 				8A8A8A8A8A8A8A8A8A8A8A8A /* XRPLDataService.swift */,
 				8B8B8B8B8B8B8B8B8B8B8B8B /* Models.swift */,
+				F1F1F1F1F1F1F1F1F1F1F1F1 /* SharedStore.swift */,
 				8C8C8C8C8C8C8C8C8C8C8C8C /* Assets.xcassets */,
 				8D8D8D8D8D8D8D8D8D8D8D8D /* Info.plist */,
+				F2F2F2F2F2F2F2F2F2F2F2F2 /* XRPLResultCodes.entitlements */,
 			);
 			path = XRPLResultCodes;
 			sourceTree = "<group>";
@@ -107,6 +114,7 @@
 				E2E2E2E2E2E2E2E2E2E2E2E2 /* WidgetFiltersIntent.swift */,
 				E3E3E3E3E3E3E3E3E3E3E3E3 /* WidgetDataService.swift */,
 				E4E4E4E4E4E4E4E4E4E4E4E4 /* Info.plist */,
+				E6E6E6E6E6E6E6E6E6E6E6E6 /* XRPLResultCodesWidget.entitlements */,
 			);
 			path = XRPLResultCodesWidget;
 			sourceTree = "<group>";
@@ -213,6 +221,7 @@
 				D3D3D3D3D3D3D3D3D3D3D3D3 /* WidgetDataService.swift in Sources */,
 				D4D4D4D4D4D4D4D4D4D4D4D4 /* Models.swift in Sources */,
 				D5D5D5D5D5D5D5D5D5D5D5D5 /* XRPLClient.swift in Sources */,
+				C2C2C2C2C2C2C2C2C2C2C2C2 /* SharedStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +234,7 @@
 				9F9F9F9F9F9F9F9F9F9F9F9F /* XRPLClient.swift in Sources */,
 				9A9A9A9A9A9A9A9A9A9A9A9B /* XRPLDataService.swift in Sources */,
 				9B9B9B9B9B9B9B9B9B9B9B9B /* Models.swift in Sources */,
+				C1C1C1C1C1C1C1C1C1C1C1C1 /* SharedStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +246,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = XRPLResultCodesWidget/XRPLResultCodesWidget.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APPINTENTS_SSU_TRAINING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -262,6 +273,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = XRPLResultCodesWidget/XRPLResultCodesWidget.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APPINTENTS_SSU_TRAINING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -374,6 +386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = XRPLResultCodes/XRPLResultCodes.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AF8875SZYP;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -399,6 +412,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = XRPLResultCodes/XRPLResultCodes.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AF8875SZYP;
 				GENERATE_INFOPLIST_FILE = NO;
