@@ -1,4 +1,5 @@
 import Foundation
+import AppIntents
 
 struct ResultCodeData: Codable {
     let type: String
@@ -34,7 +35,7 @@ enum DataMode: String, CaseIterable {
         case .live:
             return 1
         case .historical100:
-            return 100
+            return 10
         }
     }
 
@@ -88,5 +89,44 @@ enum XRPLError: Error, LocalizedError {
         case .invalidResponse:
             return "Invalid response from server"
         }
+    }
+}
+
+extension XRPLNetwork: AppEnum {
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        TypeDisplayRepresentation(name: "Network")
+    }
+
+    static var caseDisplayRepresentations: [XRPLNetwork: DisplayRepresentation] {
+        [
+            .xrpl: DisplayRepresentation(title: "XRPL", subtitle: "XRPL Mainnet"),
+            .xahau: DisplayRepresentation(title: "Xahau", subtitle: "Xahau Network")
+        ]
+    }
+}
+
+extension DisplayMode: AppEnum {
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        TypeDisplayRepresentation(name: "View")
+    }
+
+    static var caseDisplayRepresentations: [DisplayMode: DisplayRepresentation] {
+        [
+            .resultCodes: DisplayRepresentation(title: "Result Codes"),
+            .transactionTypes: DisplayRepresentation(title: "Tx Types")
+        ]
+    }
+}
+
+extension DataMode: AppEnum {
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        TypeDisplayRepresentation(name: "Data")
+    }
+
+    static var caseDisplayRepresentations: [DataMode: DisplayRepresentation] {
+        [
+            .live: DisplayRepresentation(title: "Live"),
+            .historical100: DisplayRepresentation(title: "Last 100")
+        ]
     }
 }
