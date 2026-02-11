@@ -4,7 +4,7 @@ struct ContentView: View {
     @StateObject private var dataService = XRPLDataService()
     @State private var data: XRPLData?
     @State private var displayMode: DisplayMode = .resultCodes
-    @State private var showFilters = true
+    @State private var showFilters = false
     @State private var refreshProgress: Double = 0
 
     var body: some View {

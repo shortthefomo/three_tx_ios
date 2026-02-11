@@ -6,8 +6,6 @@ struct XRPLResultCodesApp: App {
         WindowGroup {
             NavigationStack {
                 ContentView()
-                    .navigationTitle("XRPL Result Codes")
-                    .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
