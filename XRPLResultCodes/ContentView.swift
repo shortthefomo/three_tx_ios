@@ -210,23 +210,20 @@ struct ContentView: View {
                     Task { await refreshData() }
                 } label: {
                     ZStack {
+                        // Progress arc that fills as time passes
+                        Circle()
+                            .trim(from: 0, to: refreshProgress)
+                            .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+                            .rotationEffect(.degrees(-90))
+                            .opacity(dataService.isLoading ? 0 : 1)
+                        
+                        // Loading spinner when actively refreshing
                         if dataService.isLoading {
-                            // Loading state: filled blue circle with spinner
-                            Circle()
-                                .fill(Color.blue)
-                            
                             ProgressView()
-                                .tint(.white)
-                                .scaleEffect(0.6)
-                        } else {
-                            // Normal state: progress arc
-                            Circle()
-                                .trim(from: 0, to: refreshProgress)
-                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
-                                .rotationEffect(.degrees(-90))
+                                .tint(.blue)
                         }
                     }
-                    .frame(width: 36, height: 36)
+                    .frame(width: 32, height: 32)
                 }
                 .buttonStyle(.plain)
                 .disabled(dataService.isLoading || refreshProgress >= 0.99)
