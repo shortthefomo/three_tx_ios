@@ -5,7 +5,6 @@ struct ContentView: View {
     @State private var data: XRPLData?
     @State private var displayMode: DisplayMode = .resultCodes
     @State private var showFilters = true
-    @State private var refreshTimer: Timer?
     @State private var refreshProgress: Double = 0
 
     var body: some View {
@@ -209,36 +208,39 @@ struct ContentView: View {
                 Button {
                     Task { await refreshData() }
                 } label: {
-                    ZStack {
-                        // Progress arc that fills as time passes
-                        Circle()
-                            .trim(from: 0, to: refreshProgress)
-                            .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
-                            .rotationEffect(.degrees(-90))
-                            .opacity(dataService.isLoading ? 0 : 1)
-                        
-                        // Loading spinner when actively refreshing
-                        if dataService.isLoading {
-                            ProgressView()
-                                .tint(.blue)
+                    if dataService.isLoading {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                    } else {
+                        ZStack {
+                            Circle()
+                                .stroke(Color.gray.opacity(0.2), lineWidth: 2.5)
+                            
+                            Circle()
+                                .trim(from: 0, to: refreshProgress)
+                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                                .rotationEffect(.degrees(-90))
                         }
+                        .frame(width: 32, height: 32)
                     }
-                    .frame(width: 32, height: 32)
                 }
-                .buttonStyle(.plain)
-                .disabled(dataService.isLoading || refreshProgress >= 0.99)
+                .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
+                    if !dataService.isLoading {
+                        let interval = dataService.dataMode.refreshInterval
+                        let timeSinceLastUpdate = Date().timeIntervalSince(dataService.lastDataUpdate)
+                        // Calculate progress based on actual elapsed time since last fetch
+                        refreshProgress = min(timeSinceLastUpdate / interval, 1.0)
+                    }
+                }
             }
         }
         .onAppear {
             updateDisplayData()
             Task { await refreshData() }
             dataService.startAutoRefresh()
-            startProgressAnimation()
         }
         .onChange(of: dataService.lastDataUpdate) { _, _ in
             updateDisplayData()
-            refreshProgress = 0  // Reset progress on refresh
-            startProgressAnimation()  // Restart the timer
         }
     }
 
@@ -268,16 +270,5 @@ struct ContentView: View {
     private func barColor(for index: Int) -> Color {
         let colors: [Color] = [.green, .blue, .orange, .red, .purple, .pink, .yellow, .cyan]
         return colors[index % colors.count]
-    }
-    
-    private func startProgressAnimation() {
-        refreshTimer?.invalidate()
-        let interval = dataService.dataMode.refreshInterval
-        refreshTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            refreshProgress += 0.1 / interval
-            if refreshProgress >= 1.0 {
-                refreshProgress = 1.0
-            }
-        }
     }
 }
