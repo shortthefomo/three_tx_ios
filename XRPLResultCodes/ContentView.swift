@@ -211,7 +211,18 @@ struct ContentView: View {
                     if dataService.isLoading {
                         ProgressView()
                             .scaleEffect(0.8)
+                    } else if dataService.dataMode == .live {
+                        // Live mode: show "Live" indicator instead of countdown
+                        VStack(spacing: 2) {
+                            Circle()
+                                .fill(Color.green)
+                                .frame(width: 8, height: 8)
+                            Text("Live")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
                     } else {
+                        // Historical mode: show countdown timer
                         ZStack {
                             Circle()
                                 .stroke(Color(UIColor.systemGray3), lineWidth: 2.5)
@@ -225,7 +236,7 @@ struct ContentView: View {
                     }
                 }
                 .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
-                    if !dataService.isLoading {
+                    if !dataService.isLoading && dataService.dataMode != .live {
                         let interval = dataService.dataMode.refreshInterval
                         let timeSinceLastUpdate = Date().timeIntervalSince(dataService.lastDataUpdate)
                         // Calculate progress based on actual elapsed time since last fetch
