@@ -222,7 +222,7 @@ struct ContentView: View {
                             // Normal state: progress arc
                             Circle()
                                 .trim(from: 0, to: refreshProgress)
-                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
                                 .rotationEffect(.degrees(-90))
                         }
                     }
