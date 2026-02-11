@@ -132,10 +132,6 @@ struct XRPLWidgetEntryView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text((entry.configuration.displayMode ?? .resultCodes).rawValue)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
             HStack(spacing: 6) {
                 Text((entry.configuration.network ?? .xrpl).shortName)
                     .font(.headline)
