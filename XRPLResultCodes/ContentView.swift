@@ -222,11 +222,11 @@ struct ContentView: View {
                             // Normal state: progress arc
                             Circle()
                                 .trim(from: 0, to: refreshProgress)
-                                .strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
                                 .rotationEffect(.degrees(-90))
                         }
                     }
-                    .frame(width: 32, height: 32)
+                    .frame(width: 36, height: 36)
                 }
                 .buttonStyle(.plain)
                 .disabled(dataService.isLoading || refreshProgress >= 0.99)
