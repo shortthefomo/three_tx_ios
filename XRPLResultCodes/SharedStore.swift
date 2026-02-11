@@ -33,10 +33,12 @@ struct XRPLSharedStore {
 
     static func save(_ data: XRPLData, network: XRPLNetwork, dataMode: DataMode) {
         let key = cacheKey(network: network, dataMode: dataMode)
+        let timestampKey = "\(key).timestamp"
         print("🔵 SharedStore SAVE: key=\(key), total=\(data.totalTransactions)")
         do {
             let encoded = try JSONEncoder().encode(data)
             defaults.set(encoded, forKey: key)
+            defaults.set(Date().timeIntervalSince1970, forKey: timestampKey)
             print("✅ SharedStore SAVED successfully to \(suiteName)")
         } catch {
             print("❌ SharedStore SAVE failed: \(error)")
@@ -59,5 +61,21 @@ struct XRPLSharedStore {
             print("❌ SharedStore LOAD: decode failed")
             return nil
         }
+    }
+
+    static func getLastUpdateTime(network: XRPLNetwork, dataMode: DataMode) -> Date? {
+        let key = cacheKey(network: network, dataMode: dataMode)
+        let timestampKey = "\(key).timestamp"
+        if let timeInterval = defaults.object(forKey: timestampKey) as? TimeInterval {
+            return Date(timeIntervalSince1970: timeInterval)
+        }
+        return nil
+    }
+
+    static func isCacheStale(network: XRPLNetwork, dataMode: DataMode, maxAge: TimeInterval = 300) -> Bool {
+        guard let lastUpdate = getLastUpdateTime(network: network, dataMode: dataMode) else {
+            return true // No cache exists
+        }
+        return Date().timeIntervalSince(lastUpdate) > maxAge
     }
 }

@@ -52,16 +52,22 @@ struct XRPLWidgetProvider: AppIntentTimelineProvider {
             network: resolvedNetwork,
             dataMode: resolvedDataMode
         )
-
+        
+        // Always show data if we have it (fresh or stale)
+        // Only show errorMessage if we have absolutely nothing
+        let displayData = data ?? XRPLWidgetEntryView.previewData
+        let hasData = data != nil
+        
         let entry = XRPLWidgetEntry(
             date: Date(),
             configuration: configuration,
-            data: data,
-            errorMessage: data == nil ? "No data available" : nil,
-            isPlaceholder: false
+            data: displayData,
+            errorMessage: hasData ? nil : "Open the app to fetch data",
+            isPlaceholder: !hasData
         )
 
-        let refreshDate = Date().addingTimeInterval(resolvedDataMode.refreshInterval)
+        // Refresh every 1 minute to stay current
+        let refreshDate = Date().addingTimeInterval(60)
         return Timeline(entries: [entry], policy: .after(refreshDate))
     }
 }
@@ -210,9 +216,27 @@ struct XRPLWidgetEntryView: View {
     }
 
     private var footer: some View {
-        Text("Updated \(entry.date.formatted(date: .omitted, time: .shortened))")
+        let displayTime: String
+        if let data = entry.data {
+            displayTime = formatDate(data.lastUpdated)
+        } else {
+            displayTime = entry.date.formatted(date: .omitted, time: .shortened)
+        }
+        
+        return Text("Updated \(displayTime)")
             .font(.caption2)
             .foregroundColor(.secondary)
+    }
+
+    private func formatDate(_ isoString: String) -> String {
+        let formatter = ISO8601DateFormatter()
+        if let date = formatter.date(from: isoString) {
+            let displayFormatter = DateFormatter()
+            displayFormatter.timeStyle = .short
+            displayFormatter.dateStyle = .none
+            return displayFormatter.string(from: date)
+        }
+        return "Unknown"
     }
 
     private func barColor(for index: Int) -> Color {

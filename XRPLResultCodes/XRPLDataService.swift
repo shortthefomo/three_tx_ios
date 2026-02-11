@@ -8,7 +8,6 @@ final class XRPLDataService: ObservableObject {
     @Published var dataMode: DataMode = .historical100
     @Published var lastDataUpdate = Date()
 
-    private var cachedData: [XRPLNetwork: XRPLData] = [:]
     private var refreshTimer: Timer?
     private var liveClients: [XRPLNetwork: XRPLClient] = [:]
 
@@ -20,9 +19,12 @@ final class XRPLDataService: ObservableObject {
     }
 
     func getCurrentData() -> XRPLData? {
-        // Sync active config to shared store whenever we get data
+        // Always read from the central shared store (single source of truth)
+        // Save active config so widget knows what we're viewing
         XRPLSharedStore.saveActiveConfig(network: selectedNetwork, dataMode: dataMode)
-        return cachedData[selectedNetwork] ?? XRPLSharedStore.load(network: selectedNetwork, dataMode: dataMode)
+        
+        // Return data from the central store
+        return XRPLSharedStore.load(network: selectedNetwork, dataMode: dataMode)
     }
 
     func startAutoRefresh() {
@@ -79,7 +81,7 @@ final class XRPLDataService: ObservableObject {
         let client = XRPLClient()
         if let data = await fetchResultCodes(for: network, using: client) {
             print("📊 App refreshLiveData: \(network.shortName), total=\(data.totalTransactions)")
-            cachedData[network] = data
+            // Save to central shared store (single source of truth)
             XRPLSharedStore.save(data, network: network, dataMode: dataMode)
             lastDataUpdate = Date()
         }
@@ -96,18 +98,20 @@ final class XRPLDataService: ObservableObject {
 
         if let xrplData = xrplData {
             print("📊 App fetchAllNetworks XRPL: total=\(xrplData.totalTransactions)")
-            cachedData[.xrpl] = xrplData
+            // Save to central shared store (single source of truth)
             XRPLSharedStore.save(xrplData, network: .xrpl, dataMode: dataMode)
         }
         if let xahauData = xahauData {
             print("📊 App fetchAllNetworks Xahau: total=\(xahauData.totalTransactions)")
-            cachedData[.xahau] = xahauData
+            // Save to central shared store (single source of truth)
             XRPLSharedStore.save(xahauData, network: .xahau, dataMode: dataMode)
         }
 
         lastDataUpdate = Date()
         isLoading = false
-        return cachedData[selectedNetwork]
+        
+        // Return data from the central shared store for the current selection
+        return XRPLSharedStore.load(network: selectedNetwork, dataMode: dataMode)
     }
 
     private func fetchResultCodes(for network: XRPLNetwork, using client: XRPLClient) async -> XRPLData? {
