@@ -214,7 +214,7 @@ struct ContentView: View {
                     } else {
                         ZStack {
                             Circle()
-                                .stroke(Color.gray.opacity(0.2), lineWidth: 2.5)
+                                .stroke(Color(UIColor.systemGray3), lineWidth: 2.5)
                             
                             Circle()
                                 .trim(from: 0, to: refreshProgress)

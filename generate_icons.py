@@ -1,46 +1,78 @@
 #!/usr/bin/env python3
 from PIL import Image, ImageDraw
 import os
+import random
 
 def create_app_icon(size, scale):
-    """Create app icon with target size (logical) and scale (multiplier)"""
-    # Actual pixel size
+    """Create app icon with colorful grid pattern on dark background"""
     pixel_size = int(float(size.split('x')[0]) * scale)
     
-    # Create image with blue background for fintech feel
-    img = Image.new('RGB', (pixel_size, pixel_size), color=(59, 130, 246))
+    # Dark background
+    img = Image.new('RGB', (pixel_size, pixel_size), color=(15, 15, 15))
     draw = ImageDraw.Draw(img)
     
-    center = pixel_size // 2
+    # Color palette matching the visualization
+    colors = [
+        (76, 200, 89),    # Green
+        (66, 150, 255),   # Blue
+        (156, 102, 255),  # Purple
+        (255, 102, 204),  # Pink/Magenta
+    ]
     
-    # Outer darker blue circle
-    draw.ellipse(
-        [(center - pixel_size//3, center - pixel_size//3), 
-         (center + pixel_size//3, center + pixel_size//3)],
-        fill=(37, 99, 235)
-    )
+    # Create a grid pattern with random shapes (3x3 instead of 4x4 for larger shapes)
+    grid_size = 3
+    cell_size = pixel_size // (grid_size + 1)
     
-    # Create circular rings pattern (blockchain/network theme)
-    for i in range(3, 0, -1):
-        radius = (pixel_size // 6) * i
-        draw.ellipse(
-            [(center - radius, center - radius),
-             (center + radius, center + radius)],
-            outline=(255, 255, 255),
-            width=max(1, pixel_size // 20)
-        )
+    random.seed(42)  # Consistent pattern
     
-    # Center white dot
-    dot_radius = pixel_size // 12
-    draw.ellipse(
-        [(center - dot_radius, center - dot_radius),
-         (center + dot_radius, center + dot_radius)],
-        fill=(255, 255, 255)
-    )
+    for row in range(grid_size):
+        for col in range(grid_size):
+            x = (col + 1) * cell_size
+            y = (row + 1) * cell_size
+            color = random.choice(colors)
+            # Weighted to have more variety - ensure good mix of hollow and filled circles
+            shape_val = random.random()
+            if shape_val < 0.33:
+                shape = 'filled_circle'
+            elif shape_val < 0.66:
+                shape = 'hollow_circle'
+            else:
+                shape = 'triangle'
+            
+            # Draw shapes with some padding (increased for more prominent look)
+            padding = cell_size // 4  # Increased from cell_size // 6
+            
+            if shape == 'filled_circle':
+                # Draw filled circle
+                draw.ellipse(
+                    [(x - padding, y - padding),
+                     (x + padding, y + padding)],
+                    fill=color
+                )
+            elif shape == 'hollow_circle':
+                # Draw hollow circle (outline only) with better stroke width
+                stroke_width = max(2, padding // 2)
+                draw.ellipse(
+                    [(x - padding, y - padding),
+                     (x + padding, y + padding)],
+                    outline=color,
+                    width=stroke_width
+                )
+            else:
+                # Draw triangle (play button style)
+                triangle_size = padding
+                points = [
+                    (x - triangle_size, y - triangle_size),
+                    (x - triangle_size, y + triangle_size),
+                    (x + triangle_size, y),
+                ]
+                draw.polygon(points, fill=color)
+    
+    # Removed the green accent line at the bottom
     
     return img
 
-# Icon specifications from Contents.json
+# Icon specifications
 icon_specs = [
     ("20x20", 2, "iphone", "AppIcon-20x20@2x.png"),
     ("20x20", 3, "iphone", "AppIcon-20x20@3x.png"),
@@ -70,4 +102,5 @@ for size, scale, idiom, filename in icon_specs:
     img.save(filepath)
     print(f"✓ {filename}")
 
-print("\n✅ App icons created!")
+print("\n✅ App icons created with new design!")
+
