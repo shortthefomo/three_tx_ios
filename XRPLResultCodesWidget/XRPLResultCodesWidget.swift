@@ -21,18 +21,33 @@ struct XRPLWidgetProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: XRPLWidgetConfigurationIntent, in context: Context) async -> XRPLWidgetEntry {
-        XRPLWidgetEntry(
+        // Load real data for snapshot
+        let appConfig = XRPLSharedStore.loadActiveConfig()
+        let resolvedNetwork = configuration.network ?? appConfig.network
+        let resolvedDataMode = configuration.dataMode ?? appConfig.dataMode
+        
+        let data = await XRPLWidgetDataService().fetchData(
+            network: resolvedNetwork,
+            dataMode: resolvedDataMode
+        )
+        
+        return XRPLWidgetEntry(
             date: Date(),
             configuration: configuration,
-            data: XRPLWidgetEntryView.previewData,
+            data: data ?? XRPLWidgetEntryView.previewData,
             errorMessage: nil,
-            isPlaceholder: context.isPreview
+            isPlaceholder: false
         )
     }
 
     func timeline(for configuration: XRPLWidgetConfigurationIntent, in context: Context) async -> Timeline<XRPLWidgetEntry> {
-        let resolvedNetwork = configuration.network ?? .xrpl
-        let resolvedDataMode = configuration.dataMode ?? .historical100
+        // Use widget's explicit config first, then fall back to app's active config
+        let appConfig = XRPLSharedStore.loadActiveConfig()
+        let resolvedNetwork = configuration.network ?? appConfig.network
+        let resolvedDataMode = configuration.dataMode ?? appConfig.dataMode
+        
+        print("🟣 Widget timeline: using network=\(resolvedNetwork.shortName), mode=\(resolvedDataMode.rawValue)")
+        
         let data = await XRPLWidgetDataService().fetchData(
             network: resolvedNetwork,
             dataMode: resolvedDataMode

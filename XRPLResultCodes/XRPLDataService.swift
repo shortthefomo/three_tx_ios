@@ -20,10 +20,14 @@ final class XRPLDataService: ObservableObject {
     }
 
     func getCurrentData() -> XRPLData? {
-        cachedData[selectedNetwork] ?? XRPLSharedStore.load(network: selectedNetwork, dataMode: dataMode)
+        // Sync active config to shared store whenever we get data
+        XRPLSharedStore.saveActiveConfig(network: selectedNetwork, dataMode: dataMode)
+        return cachedData[selectedNetwork] ?? XRPLSharedStore.load(network: selectedNetwork, dataMode: dataMode)
     }
 
     func startAutoRefresh() {
+        print("🔄 App startAutoRefresh: network=\(selectedNetwork.shortName), mode=\(dataMode.rawValue)")
+        XRPLSharedStore.saveActiveConfig(network: selectedNetwork, dataMode: dataMode)
         refreshTimer?.invalidate()
 
         if dataMode == .live {
@@ -74,6 +78,7 @@ final class XRPLDataService: ObservableObject {
 
         let client = XRPLClient()
         if let data = await fetchResultCodes(for: network, using: client) {
+            print("📊 App refreshLiveData: \(network.shortName), total=\(data.totalTransactions)")
             cachedData[network] = data
             XRPLSharedStore.save(data, network: network, dataMode: dataMode)
             lastDataUpdate = Date()
@@ -90,10 +95,12 @@ final class XRPLDataService: ObservableObject {
         let (xrplData, xahauData) = await (xrplTask, xahauTask)
 
         if let xrplData = xrplData {
+            print("📊 App fetchAllNetworks XRPL: total=\(xrplData.totalTransactions)")
             cachedData[.xrpl] = xrplData
             XRPLSharedStore.save(xrplData, network: .xrpl, dataMode: dataMode)
         }
         if let xahauData = xahauData {
+            print("📊 App fetchAllNetworks Xahau: total=\(xahauData.totalTransactions)")
             cachedData[.xahau] = xahauData
             XRPLSharedStore.save(xahauData, network: .xahau, dataMode: dataMode)
         }

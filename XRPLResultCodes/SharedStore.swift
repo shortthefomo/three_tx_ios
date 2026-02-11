@@ -13,22 +13,51 @@ struct XRPLSharedStore {
         return "xrpl.cache.\(safeNetwork).\(safeMode)"
     }
 
+    // Store the app's current active configuration so the widget can sync
+    static func saveActiveConfig(network: XRPLNetwork, dataMode: DataMode) {
+        print("💾 SharedStore SAVE ACTIVE CONFIG: network=\(network.shortName), mode=\(dataMode.rawValue)")
+        defaults.set(network.rawValue, forKey: "xrpl.activeNetwork")
+        defaults.set(dataMode.rawValue, forKey: "xrpl.activeDataMode")
+    }
+
+    static func loadActiveConfig() -> (network: XRPLNetwork, dataMode: DataMode) {
+        let networkStr = defaults.string(forKey: "xrpl.activeNetwork") ?? XRPLNetwork.xrpl.rawValue
+        let modeStr = defaults.string(forKey: "xrpl.activeDataMode") ?? DataMode.live.rawValue
+        
+        let network = XRPLNetwork(rawValue: networkStr) ?? .xrpl
+        let dataMode = DataMode(rawValue: modeStr) ?? .live
+        
+        print("📖 SharedStore LOAD ACTIVE CONFIG: network=\(network.shortName), mode=\(dataMode.rawValue)")
+        return (network, dataMode)
+    }
+
     static func save(_ data: XRPLData, network: XRPLNetwork, dataMode: DataMode) {
         let key = cacheKey(network: network, dataMode: dataMode)
+        print("🔵 SharedStore SAVE: key=\(key), total=\(data.totalTransactions)")
         do {
             let encoded = try JSONEncoder().encode(data)
             defaults.set(encoded, forKey: key)
+            print("✅ SharedStore SAVED successfully to \(suiteName)")
         } catch {
+            print("❌ SharedStore SAVE failed: \(error)")
             return
         }
     }
 
     static func load(network: XRPLNetwork, dataMode: DataMode) -> XRPLData? {
         let key = cacheKey(network: network, dataMode: dataMode)
+        print("🟡 SharedStore LOAD: key=\(key) from \(suiteName)")
         guard let data = defaults.data(forKey: key) else {
+            print("❌ SharedStore LOAD: key not found in cache")
             return nil
         }
 
-        return try? JSONDecoder().decode(XRPLData.self, from: data)
+        if let decoded = try? JSONDecoder().decode(XRPLData.self, from: data) {
+            print("✅ SharedStore LOADED: total=\(decoded.totalTransactions)")
+            return decoded
+        } else {
+            print("❌ SharedStore LOAD: decode failed")
+            return nil
+        }
     }
 }
