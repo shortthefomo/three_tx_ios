@@ -37,3 +37,20 @@ This script generates all required iOS app icon sizes (18 total) based on the de
 - Pillow library: `pip3 install Pillow`
 
 The icon design features a dark background with colorful geometric shapes (green triangles, blue/purple/pink circles - both filled and hollow) arranged in a 3x3 grid pattern.
+
+## Privacy Compliance
+
+This app includes Privacy Manifests (`PrivacyInfo.xcprivacy`) in both the main app and widget targets to comply with Apple's privacy requirements:
+
+- **UserDefaults API**: Used for caching XRPL data across app and widget (App Group)
+- **Reason Code**: CA92.1 (App or third-party code does NOT track users)
+
+**If PrivacyInfo.xcprivacy files are not appearing in Xcode:**
+
+1. Open `XRPLResultCodes.xcodeproj` in Xcode
+2. Select the **XRPLResultCodes** target
+3. Go to **Build Phases** → **Copy Bundle Resources**
+4. Click **+** and add `XRPLResultCodes/PrivacyInfo.xcprivacy`
+5. Select the **XRPLResultCodesWidget** target
+6. Repeat steps 3-4 and add `XRPLResultCodesWidget/PrivacyInfo.xcprivacy`
+

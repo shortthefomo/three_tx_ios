@@ -8,6 +8,7 @@ final class XRPLDataService: ObservableObject {
     @Published var selectedNetwork: XRPLNetwork = .xrpl
     @Published var dataMode: DataMode = .historical100
     @Published var lastDataUpdate = Date()
+    @Published var isLiveConnected = false
 
     private var refreshTimer: Timer?
     private var liveClients: [XRPLNetwork: XRPLClient] = [:]
@@ -56,6 +57,7 @@ final class XRPLDataService: ObservableObject {
 
             client.onLedgerClosed = { [weak self] _ in
                 Task { @MainActor in
+                    self?.isLiveConnected = true
                     await self?.refreshLiveData(for: network)
                 }
             }
@@ -63,7 +65,10 @@ final class XRPLDataService: ObservableObject {
             do {
                 try await client.connect(to: network)
                 try await client.subscribeToLedgerClosed()
+                isLiveConnected = true
+                print("✅ Live connected to \(network.shortName)")
             } catch {
+                isLiveConnected = false
                 print("❌ Live subscribe failed for \(network.shortName): \(error)")
             }
         }
@@ -74,6 +79,21 @@ final class XRPLDataService: ObservableObject {
             client.disconnect()
         }
         liveClients.removeAll()
+        isLiveConnected = false
+    }
+
+    func checkAndReconnectLiveIfNeeded() async {
+        // Only check if we're in live mode
+        guard dataMode == .live else { return }
+        
+        // If already connected, no need to reconnect
+        if isLiveConnected && !liveClients.isEmpty {
+            return
+        }
+        
+        print("🔌 Checking WebSocket connection... reconnecting if needed")
+        stopLiveListeners()
+        await startLiveListeners()
     }
 
     private func refreshLiveData(for network: XRPLNetwork) async {

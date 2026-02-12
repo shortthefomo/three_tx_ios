@@ -249,9 +249,15 @@ struct ContentView: View {
             updateDisplayData()
             Task { await refreshData() }
             dataService.startAutoRefresh()
+            // Check WebSocket connection for live mode
+            Task { await dataService.checkAndReconnectLiveIfNeeded() }
         }
         .onChange(of: dataService.lastDataUpdate) { _, _ in
             updateDisplayData()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            // When app returns to foreground, check WebSocket for live mode
+            Task { await dataService.checkAndReconnectLiveIfNeeded() }
         }
     }
 
